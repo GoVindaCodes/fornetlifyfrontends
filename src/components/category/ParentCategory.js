@@ -163,35 +163,66 @@ const ParentCategory = ({
   //   });
   // };
 
+  // const handleSelect = (key) => {
+  //   const obj = data[0];
+  //   const result = findObject(obj, key);
+
+  //   if (result !== undefined) {
+  //     const getCategory = selectedCategory.filter(
+  //       (value) => value._id === result._id
+  //     );
+
+  //     if (getCategory.length !== 0) {
+  //       return notifySuccess("This category already selected!");
+  //     }
+
+  //     setSelectedCategory((pre) => [
+  //       ...pre,
+  //       {
+  //         _id: result?._id,
+  //         name: showingTranslateValue(result?.parent, lang),
+  //       },
+  //     ]);
+  //     setDefaultCategory(() => [
+  //       {
+  //         _id: result?._id,
+  //         name: showingTranslateValue(result?.parent, lang),
+  //       },
+  //     ]);
+  //   }
+  // };
+
+  
   const handleSelect = (key) => {
-    const obj = data[0];
-    const result = findObject(obj, key);
-
-    if (result !== undefined) {
-      const getCategory = selectedCategory.filter(
-        (value) => value._id === result._id
-      );
-
-      if (getCategory.length !== 0) {
-        return notifySuccess("This category already selected!");
+    const findCategoryAndChildren = (categories, key) => {
+      let foundCategories = [];
+      for (const category of categories) {
+        if (category._id === key) {
+          foundCategories.push({
+            _id: category._id,
+            name: showingTranslateValue(category?.parent, lang),
+          });
+        }
+        if (category.children && category.children.length > 0) {
+          foundCategories = foundCategories.concat(
+            findCategoryAndChildren(category.children, key)
+          );
+        }
       }
 
-      setSelectedCategory((pre) => [
-        ...pre,
-        {
-          _id: result?._id,
-          name: showingTranslateValue(result?.parent, lang),
-        },
-      ]);
-      setDefaultCategory(() => [
-        {
-          _id: result?._id,
-          name: showingTranslateValue(result?.parent, lang),
-        },
-      ]);
+      return foundCategories;
+    };
+    const foundCategories = findCategoryAndChildren(data, key);
+    const newCategories = foundCategories.filter(
+      (cat) => !selectedCategory.some((value) => value._id === cat._id)
+    );
+    if (newCategories.length > 0) {
+      setSelectedCategory((prev) => [...prev, ...newCategories]);
+      setDefaultCategory(newCategories);
+    } else {
+      notifySuccess("This category or its children are already selected!");
     }
   };
-
   const handleRemove = (v) => {
     setSelectedCategory(v);
   };
