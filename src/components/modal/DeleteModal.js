@@ -75,11 +75,11 @@ const DeleteModal = ({ allId, id, ids, setIsCheck, category, title, useParamId }
 
       if (location.pathname === "/categories" || category) {
         if (ids) {
-          // console.log('delete modal categorices', ids)
+          console.log('delete modal categorices', ids)
           const res = await CategoryServices.deleteManyCategory({
             ids: ids,
           });
-          //  console.log('delete many category res',res)
+          console.log('delete many category res', res)
           setIsUpdate(true);
           notifySuccess(res.message);
           setIsCheck([]);
@@ -87,37 +87,45 @@ const DeleteModal = ({ allId, id, ids, setIsCheck, category, title, useParamId }
           closeModal();
           setIsSubmitting(false);
         } else {
-          if (id === undefined || !id) {
-            notifyError("Please select a category first!");
-            setIsSubmitting(false);
-            return closeModal();
-          }
-          // console.log('delete modal open', id)
           const res = await CategoryServices.deleteCategory(id);
           setIsUpdate(true);
           notifySuccess(res.message);
-          closeModal();
           setServiceId();
+          closeModal();
           setIsSubmitting(false);
         }
-      } else if (
-        location.pathname === `/categories/${useParamId}` ||
-        category
-      ) {
-        // console.log('delete modal ')
-        if (id === undefined || !id) {
-          notifyError("Please select a category first!");
-          setIsSubmitting(false);
-          return closeModal();
-        }
-
-        const res = await CategoryServices.deleteCategory(id);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeModal();
-        setServiceId();
-        setIsSubmitting(false);
       }
+      //     if (id === undefined || !id) {
+      //       notifyError("Please select a category first!");
+      //       setIsSubmitting(false);
+      //       return closeModal();
+      //     }
+      //     // console.log('delete modal open', id)
+      //     const res = await CategoryServices.deleteCategory(id);
+      //     setIsUpdate(true);
+      //     notifySuccess(res.message);
+      //     closeModal();
+      //     setServiceId();
+      //     setIsSubmitting(false);
+      //   }
+      // } else if (
+      //   location.pathname === `/categories/${useParamId}` ||
+      //   category
+      // ) {
+      //   console.log('delete modal ')
+      //   if (id === undefined || !id) {
+      //     notifyError("Please select a category first!");
+      //     setIsSubmitting(false);
+      //     return closeModal();
+      //   }
+
+      //   const res = await CategoryServices.deleteCategory(id);
+      //   setIsUpdate(true);
+      //   notifySuccess(res.message);
+      //   closeModal();
+      //   setServiceId();
+      //   setIsSubmitting(false);
+      // }
 
       if (location.pathname === "/customers") {
         const res = await CustomerServices.deleteCustomer(id);

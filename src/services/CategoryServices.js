@@ -204,6 +204,7 @@ const CategoryServices = {
   },
 
   deleteCategory: async (id) => {
+    console.log("ids : ", id)
     return requests.delete(`/api/category/${id}`); // Updated route
   },
 

@@ -273,7 +273,7 @@ const Attributes = () => {
 
                     <TableCell className="text-center">{t("catPublishedTbl")}</TableCell>
 
-                    <TableCell className="text-center">{t("Avalues")}</TableCell>
+                    {/* <TableCell className="text-center">{t("Avalues")}</TableCell> */}
 
                     <TableCell className="text-right">{t("AAction")}</TableCell>
                   </tr>

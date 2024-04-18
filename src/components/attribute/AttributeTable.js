@@ -171,7 +171,7 @@ const AttributeTable = ({ isCheck, setIsCheck, attributes }) => {
               <ShowHideButton id={attribute._id} status={attribute.status} />
             </TableCell>
 
-            <TableCell className="flex justify-center">
+            {/*<TableCell className="flex justify-center">
               <Link
                 to={`/attributes/${attribute._id}`}
                 className="p-2 cursor-pointer text-gray-400 hover:text-green-600 focus:outline-none"
@@ -183,7 +183,8 @@ const AttributeTable = ({ isCheck, setIsCheck, attributes }) => {
                   bgColor="#10B981"
                 />
               </Link>
-            </TableCell>
+            </TableCell> */}
+
 
             <TableCell>
               <EditDeleteButton
